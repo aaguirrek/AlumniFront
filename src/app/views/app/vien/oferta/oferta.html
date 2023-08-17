@@ -1,0 +1,100 @@
+<img class="social-header card-img maxh-250 solicialisto" src="/assets/img/social/header.jpg" style="position: fixed;filter: blur(20px);width: auto;left: 0;top: -50px;min-height: calc(100vh + 100px);opacity: 0.25;min-width: 100vw;"/>
+<div class="row">
+  <div class="col-12">
+
+      <img *ngIf="!doc.logo_empresa" src="/assets/img/company.png" alt="" class="float-left img-thumbnail rounded-circle" style="max-width: 100px;margin-right: 30px;margin-bottom: 25px;">
+      <img *ngIf="doc.logo_empresa" src="https://bdalumni.evolutionsoluciones.com{{doc.logo_empresa}}" alt="" class="float-left img-thumbnail rounded-circle" style="max-width: 100px;margin-right: 30px;margin-bottom: 25px;">
+      <ng-container *ngIf="doc.mostrar_salario != 'No'">
+        <h2 class="text-uppercase">
+          <button class="btn btn-primary btn-primary-gradient text-light float-right mb-5" *ngIf="doc.hasta == '0'">S/. {{doc.desde}}</button>
+          <button class="btn btn-primary btn-primary-gradient text-light float-right mb-5" *ngIf="doc.hasta != '0'">S/. {{doc.desde}} - S/. {{doc.hasta}}</button>
+          {{doc.oferta}} <br/> <small class="text-small color-theme-2">{{doc.empresa}}</small></h2>
+      </ng-container>
+      <ng-container *ngIf="doc.mostrar_salario == 'No'">
+        <h2 class="text-uppercase">{{doc.oferta}} <br/> <small class="text-small color-theme-2">{{doc.empresa}}</small></h2>
+      </ng-container>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <div class="row">
+
+      <div class="col-12 mb-3">
+        <div class="card bg-theme-2 text-white">
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-md-6">
+                <h5><i class="iconsminds-timer mr-1"></i> <b>Años de experiencia:</b> {{doc["experiencia"]}} años de experiencia</h5>
+                <h5><i class="iconsminds-id-card mr-1"></i> <b>Carrera:</b> {{doc["grado_profesional"]}}</h5>
+                <h5><i class="iconsminds-students mr-1"></i> <b>Condición:</b> {{doc["condicion"]}}</h5>
+              </div>
+              <div class="col-md-6">
+                <h5><i class="iconsminds-notepad mr-1"></i> <b>Tipo de puesto:</b> {{doc["tipo_de_puesto"]}}</h5>
+                <h5><i class="iconsminds-building mr-1"></i> <b>Modalidad de trabajo:</b> {{doc["modalidad_de_trabajo"]}}</h5>
+                <h5><i class="iconsminds-geo2 mr-1"></i> {{doc["localidad"]}}, Peru</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card d-flex flex-row mb-4">
+          <div class="card-body">
+                <div class="" [innerHTML]='doc["descripción"]'>
+                </div>
+                <div class="" [innerHTML]='doc["requisitos_adicionales"]' ></div>
+                <h3 class="text-bold mb-3 mt-3">Carreras a las que aplica la oferta laboral</h3>
+                <ng-container *ngFor='let carrera of doc["nombre_de_carrera"]'>
+                  <div class="btn btn-secondary-gradient text-light mr-2 me-2 mb-2">{{carrera["nombre"]}}</div>
+                </ng-container>
+              </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-dark">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-4 text-center text-large text-danger"><i class="simple-icon-heart"></i></div>
+              <div class="col-md-4 text-center text-large text-light"><i class="simple-icon-share"></i></div>
+              <div class="col-md-4 text-center text-large text-warning"><i class="simple-icon-bell"></i></div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 text-center text-light mt-4 mb-4">
+                <h5><b>Postula a este puesto de trabajo</b> </h5>
+                <div class="row">
+                  <div class="col-md-12">
+                    <img src="/assets/img/postula.gif" alt="" style=" max-width: 50%;" >
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <button class="btn btn-secondary btn-secondary-gradient text-light mt-2" (click)="postular()" *ngIf="ofertas.length==0 && postulado==0">Postular Ahora</button>
+                    <button class="btn btn-primary btn-primary-gradient text-light mt-2" *ngIf="ofertas.length>0">{{ofertas[0].status}}</button>
+                    <button class="btn btn-primary btn-primary-gradient text-light mt-2" *ngIf="ofertas.length==0 && postulado==1">En espera</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+       <!-- <div class="card mt-3" *ngIf="ofertas.length==0 && postulado==0">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12 text-center  mt-4 mb-4">
+                <h5><b>Mide tus capacidades para este puesto</b> </h5>
+                <div class="row">
+                  <div class="col-md-12">
+                    <a [routerLink]="'../../preguntas'" class="btn btn-secondary btn-secondary-gradient text-light mt-2" >Medir</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+</div>
+<simple-notifications></simple-notifications>

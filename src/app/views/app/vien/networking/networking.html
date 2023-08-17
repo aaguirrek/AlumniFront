@@ -1,0 +1,71 @@
+
+<img *ngIf="doc_list.length == 0" class="social-header card-img maxh-250 solicialisto" src="/assets/img/social/header.jpg" style="position: fixed;filter: blur(20px);width: auto;left: 0;top: -50px;min-height: calc(100vh + 100px);opacity: 0.17;min-width: 100vw;"/>
+<img *ngIf="doc_list.length > 0" class="social-header card-img maxh-250 solicialisto" src="https://bdalumni.evolutionsoluciones.com/{{doc_list[0]['meta_image']}}" style="position: fixed;filter: blur(20px);width: auto;left: 0;top: -50px;min-height: calc(100vh + 100px);opacity: 0.45;min-width: 100vw;"/>
+<div class="row" *ngIf="doc_list.length == 0">
+    <div class="col-md-12">
+
+      <div class="card mb-4 ">
+        <div class="card-body">
+            <h1 class="card-title">Networking</h1>
+            <div class="text-center">
+
+                <img src="/assets/img/gif/112-book-morph-flat.gif" class="img-fluid m-auto" alt="ups" style="max-height: 200px;">
+            </div>
+            <h3 class="mb-3 truncate text-center">Ups! aquí no hay nada</h3>
+        </div>
+    </div>
+    </div>
+</div>
+<div class="row" *ngIf="doc_list.length > 0">
+  <div class="col-md-6 offset-md-2" *ngFor="let doc of doc_list; let i = index">
+
+    <div class="card mb-4 ">
+      <div class="position-relative">
+          <img alt="Thumbnail" src="https://bdalumni.evolutionsoluciones.com/{{doc['meta_image']}}" class="card-img-top">
+      </div>
+      <div class="card-body">
+          <h2 class="text-center font-weight-bolder text-primary mb-4">{{doc.title}}</h2>
+          <div [innerHTML]="doc['blog_intro']" *ngIf="doc['vermas']===undefined"></div>
+          <div [innerHTML]="doc['content']" *ngIf="doc['vermas']!==undefined"></div>
+
+      </div>
+      <div class="card-footer text-center">
+        <ng-container *ngIf="doc['vermas']!==undefined" >
+          <div class="card mb-3 text-left" *ngFor="let comment of doc['comments']">
+           <div class="card-body">
+            <span class="text-primary font-weight-bold" >{{comment.comment_by}} </span><br>
+            <div [innerHTML]="comment.content"></div>
+
+           </div>
+          </div>
+
+       </ng-container>
+        <button class="btn btn-outline-primary"  *ngIf="doc['vermas']===undefined" (click)="vermas(i,doc.name)">Ver más</button>
+        <button class="btn btn-outline-primary"  *ngIf="doc['vermas']!==undefined" (click)="showModal(addCommentModal,doc.name,i)">Ingresa tu respuesta</button>
+
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<ng-template #addCommentModal>
+
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Edita tus datos personales</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body" style="min-height: 400px;">
+      <div style="height: 250px ;">
+
+        <quill-editor [placeholder]="''" id="comment"></quill-editor>
+      </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-primary" (click)="saveComment()">Guardar</button>
+    </div>
+</ng-template>

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en" direction="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Tecsup</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="assets/fonts/iconsmind-s/css/iconsminds.css">
+  <link rel="stylesheet" href="assets/fonts/simple-line-icons/css/simple-line-icons.css">
+
+
+  <style>
+    .preloader {
+        width: 100%;
+        height: 100%;
+        background-color: var(--separator-color);
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 10000000;
+      }
+
+      .circle {
+        border-radius: 190px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        opacity: 0;
+      }
+
+      .circle1 {
+        background-color: #007fb5;
+        width: 100px;
+        height: 100px;
+        margin-top: -100px;
+        margin-left: -100px;
+      }
+
+      .circle2 {
+        background-color: #009CDE;
+        width: 70px;
+        height: 70px;
+        margin-top: -85px;
+        margin-left: -85px;
+      }
+
+      .circle3 {
+        background-color: #B3D1E3;
+        width: 40px;
+        height: 40px;
+        margin-top: -70px;
+        margin-left: -70px;
+      }
+  </style>
+</head>
+<body class="rounded">
+
+
+<div class="preloader" style="display: none;">
+  <div class="circle circle1"></div>
+  <div class="circle circle2"></div>
+  <div class="circle circle3"></div>
+</div>
+
+
+  <app-root></app-root>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+  var $circles = $('.circle'),
+    tl = new TimelineMax(),
+    random1 = getRandomNumber()
+
+
+    function loaderOut() {
+      console.log('Image is done loading.');
+    }
+
+    function getRandomNumber() {
+      return Math.floor(Math.random() * 10000);
+    }
+
+
+    TweenMax.set($circles, {scale: 0});
+
+    tl.insert(
+      TweenMax.staggerTo($circles.toArray(), 1, {
+        opacity: 1,
+        scale: 1,
+        ease: Power1.easeIn
+      }, 0.2)
+    );
+
+    tl.insert(
+      TweenMax.staggerTo($circles.toArray(), 0.5, {
+        scale: 1.2,
+        boxShadow: '0 25px 25px rgba(0, 0, 0, 0.4)',
+        repeat: -1,
+        yoyo: true,
+        ease: Power1.easeOut
+      }, 0.2), '-=0.4'
+    );
+</script>
+</html>

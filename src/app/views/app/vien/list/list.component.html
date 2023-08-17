@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-12 mb-4">
+		<h3>{{documento}}</h3>
+		<div class="float-right position-absolute top-right-button">
+			<a [routerLink]="['/app/vien/doctype/'+documento]"  class="btn btn-sm btn-primary ">Nuevo</a>
+		</div>
+    </div>
+    <div class="col-12"> 
+		<div class="card mb-4">
+			<div class="card-body">
+				<div class="row">
+					<div class="col-md-12">
+						<table class="table table-borderless table-responsive-md">
+							<thead>
+								<tr>
+									<th id="name">#</th>
+									<th *ngFor="let field of fields">{{field.label}}</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngIf="datas.length == 0 ">
+									<td *ngFor="let field of fields"></td>
+								</tr>
+								<tr *ngFor="let data of datas">
+									<td *ngFor="let value of data | keyvalue: asIsOrder;
+									let i = index">
+									
+									<div class="custom-control custom-checkbox mb-4" *ngIf="value.key == 'name' " >
+										<input type="checkbox" class="custom-control-input" id="customCheckThis" />
+										<label class="custom-control-label" for="customCheckThis"> </label>
+									  </div>
+									
+									<a [routerLink]="['/app/vien/doctype/'+documento+'/'+value.name]" *ngIf="value.key != 'name' ">{{value.value}} </a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

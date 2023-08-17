@@ -1,0 +1,195 @@
+<img class="social-header card-img maxh-250 solicialisto" src="/assets/img/social/header.jpg" style="position: fixed;filter: blur(20px);width: auto;left: 0;top: -50px;min-height: calc(100vh + 100px);opacity: 0.25;min-width: 100vw;"/>
+
+<div class="row">
+  <div class="col-12 mb-5">
+      <img class="social-header card-img maxh-250" src="/assets/img/social/header.jpg" />
+  </div>
+  <div class="col-12 col-xl-6 col-left">
+          <img alt="Profile" src="{{cur_doc['foto']?'https://bdalumni.evolutionsoluciones.com'+cur_doc['foto']:'/assets/img/profiles/l-7.jpg'}}"
+              class="img-thumbnail card-img social-profile-img rounded-circle" style="
+              margin-top: -30px;
+          ">
+
+      <div class="card mb-4 card-anim">
+          <div class="card-body">
+            <div class="text-center pt-4">
+                <p class="list-item-heading pt-4 mt-4">{{cur_doc['nombre']?cur_doc['nombre']:''}} </p>
+            </div>
+              <p class="mb-3 text-center">
+                  <a href="#">
+                  <!--    <span class="badge badge-pill badge-theme-3 mb-4 ">2 encuestas pendientes</span>-->
+                  </a>
+              </p>
+              <p class="mb-3">    <b>Nombre completo: </b> {{cur_doc['nombre']?cur_doc['nombre']:''}} {{cur_doc['apellidos']!==undefined?cur_doc['apellidos']:"" }}</p>
+              <p class="mb-3">    <b>{{cur_doc['numero_de_celular']?'Celular:':''}} </b> {{cur_doc['numero_de_celular']?cur_doc['numero_de_celular']:''}}</p>
+              <p class="mb-3">    <b>{{cur_doc['correo_personal']?"Correo:":''}} </b> {{cur_doc['correo_personal']?cur_doc['correo_personal']:''}}</p>
+
+
+              <p class="text-success font-weight-bold text-small mb-2" *ngIf="cur_doc['experiencia_laboral'].length>0">
+                {{ cur_doc['experiencia_laboral'][cur_doc['experiencia_laboral'].length-1].cargo  }} en {{ cur_doc['experiencia_laboral'][cur_doc['experiencia_laboral'].length-1].nombre_de_la_empresa  }}
+            </p>
+            <p class="text-success font-weight-bold text-small mb-2" *ngIf="cur_doc['experiencia_laboral'].length==0 && cur_doc['educacion_superior'].length>0">
+                {{ cur_doc['educacion_superior'][cur_doc['educacion_superior'].length-1].grado  }} en {{ cur_doc['educacion_superior'][cur_doc['educacion_superior'].length-1].institucion  }}
+            </p>
+            <p class="text-success font-weight-bold text-small mb-2" *ngIf="cur_doc['experiencia_laboral'].length==0 && cur_doc['educacion_superior'].length==0 && cur_doc['educacion_basica'].length>0">
+                {{ cur_doc['educacion_basica'][cur_doc['educacion_basica'].length-1].grado  }} en {{ cur_doc['educacion_basica'][cur_doc['educacion_basica'].length-1].institucion  }}
+            </p>
+
+
+
+              <p class="mb-3" *ngIf="cur_doc['resumen']!==undefined">{{cur_doc["resumen"]}}</p>
+
+              <p class="mb-3">{{cur_doc['departamento']?cur_doc['departamento']+",":''}} {{cur_doc['pais_de_residencia']?cur_doc['pais_de_residencia']:''}}</p>
+              <p class="text-muted text-small mb-2">&nbsp;</p>
+              <p class="text-muted text-small mb-2"></p>
+              <div class="social-icons">
+                  <ul class="list-unstyled list-inline">
+                      <a class="btn btn-outline-primary btn-xs" [routerLink]="'/app/vien/perfil'">Editar el perfil completo</a>
+                  </ul>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-md-6 mb-5">
+              <div class="card mb-4 ">
+                  <div class="position-absolute card-top-buttons">
+                      <button class="btn btn-header-light icon-button">
+                          <i class="simple-icon-refresh"></i>
+                      </button>
+                  </div>
+
+                  <div class="card-body">
+                      <h2 class="card-title">Eventos</h2>
+                      <div class="card-centered">
+                         <span class="big-contador"> <img src="/assets/img/calendar.png" alt="" srcset="">  {{eventos.length}}</span>
+                        <!-- <a href="#" class="btn btn-secondary-gradient text-white btn-lg btn-under-card">Ver todos los eventos</a> -->
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-6 mb-5">
+              <div class="card mb-4">
+                  <div class="position-absolute card-top-buttons">
+                      <button class="btn btn-header-light icon-button">
+                          <i class="simple-icon-refresh"></i>
+                      </button>
+                  </div>
+
+                  <div class="card-body">
+                      <h2 class="card-title">Asesorías</h2>
+                      <div class="card-centered">
+                         <span class="big-contador"> <img src="/assets/img/asesor.png" alt="" srcset=""> {{doc_aprovado.length}}</span>
+                           <!-- <a href="#" class="btn btn-secondary-gradient text-white btn-lg btn-under-card">Ver todas las asesorías</a>-->
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col-md-12">
+            <h2 class="card-title mt-3 mb-4">Proximos Eventos</h2>
+        </div>
+        <div class="col-md-12">
+            <div class="card mb-4"  *ngIf="eventos.length < 1">
+                <div class="card-body">
+                    <div class="col-md-6 offset-md-3 mb-5">
+                    <img id="imgUploadFile" src="/assets/img/gif/16-avatar-woman-nodding-flat.gif" style="max-height: 150px;display: block;margin: auto;margin-bottom: 20px;"/>
+                </div>
+                <h4 class="mb-3 text-center">Por el momento no tenemos eventos próximos <br/> por favor vuelve en unos momentos</h4>
+
+                </div>
+            </div>
+
+            <ng-container *ngIf="eventos.length > 0">
+                <div class="card mb-4 d-none d-lg-block" *ngFor="let ev of eventos" >
+                    <div class="card-body">
+                        <h4 class="">{{ev.nombre}}</h4>
+                        <h5 class="text-primary">{{ev.organizado_por}}</h5>
+                        <p class=""><small>{{ev.fecha}}</small></p>
+                        <p>Hora: {{ev.hora}} horas</p>
+                        <p>{{ev.lugar}}</p>
+                    </div>
+                    <div class="card-footer ">
+                        <a class="btn btn-outline-primary" href="{{ev.enlace_de_evento}}" target="_blank">Inscribirse</a>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+
+      </div>
+
+
+  </div>
+
+  <div class="col-12 col-xl-6 col-right">
+
+      <div class="card mb-4 d-none d-lg-block">
+          <div class="card-body">
+              <h1 class="card-title">Mis Postulaciones</h1>
+              <div class="col-md-6 offset-md-3 mb-5" *ngIf="ofertas.length==0">
+
+                  <img src="/assets/img/gif/112-book-morph-flat.gif" class="img-fluid" alt="ups">
+              </div>
+              <h3 class="mb-3 truncate text-center" *ngIf="ofertas.length==0">Todavia no has postulado a ninguna oferta laboral</h3>
+
+              <ng-container *ngFor="let postulado of ofertas" >
+                <div class="col-12 mb-2">
+                  <div class="card d-flex flex-row mb-4" >
+                    <div class="card-body pl-3 pt-2 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero">
+                      <div class="min-width-zero">
+                        <a [routerLink]="'/app/vien/ofertas/'+postulado.oferta_laboral" >
+                            <p class="list-item-heading mb-1 truncate text-primary text-bold datatruncate">{{postulado.nombre_de_la_oferta_labora}}</p>
+                        </a>
+                        <p class="mb-2 text-small font-weight-bold">{{postulado.modalidad_de_trabajo}}</p>
+                        <p class="mb-2 text-muted text-small">Empresa: {{postulado.empresa}}</p>
+                        <p class="mb-2 text-muted text-small">Fin de publicacion: {{postulado["fin_de_publicacion"]}}</p>
+                        <div style="position: absolute;right: 10px;top: 10px;">
+                          <p class="text-center">
+                            <span class="color-theme-1 font-weight-bold text-one">Estado</span>
+                            <br/>{{postulado.status}}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+
+          </div>
+      </div>
+
+        <div class="card mb-4 d-none d-lg-block">
+            <div class="card-body">
+              <div class="d-flex flex-row mb-3">
+                  <div class="">
+                          <h1>Recomendaciones Laborales</h1>
+                  </div>
+              </div>
+              <div class="col-md-6 offset-md-3 mb-5">
+                <img id="imgUploadFile" src="/assets/img/gif/981-consultation-gradient.gif" style="max-height: 150px;display: block;margin: auto;margin-bottom: 20px;"/>
+            </div>
+            <h4 class="mb-3 text-center">Por el momento no tenemos recomendaciones, nuestro equipo se encuentra buscando las mejores recomendaciones laborales para tu perfil <br/> por favor prueba en unos momentos</h4>
+
+          </div>
+        </div>
+       <!-- <div class="card mb-4" >
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12 mt-4 mb-4">
+                <h1>Mide tus capacidades</h1>
+                <div class="row">
+                  <div class="col-md-12 text-center">
+                    <img id="imgUploadFile" src="/assets/img/gif/wired-gradient-153-bar-chart-growth.gif" style="max-height: 150px;display: block;margin: auto;margin-bottom: 20px;"/>
+
+                    <a  [routerLink]="'../gestorcarreras'" class="btn btn-secondary btn-secondary-gradient text-light mt-2"  >Ir al Gestor de Carrearas</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>-->
+
+
+
+  </div>
+</div>

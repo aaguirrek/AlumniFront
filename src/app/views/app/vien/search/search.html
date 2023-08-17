@@ -1,0 +1,55 @@
+<img class="social-header card-img maxh-250 solicialisto" src="/assets/img/social/header.jpg" style="position: fixed;filter: blur(20px);width: auto;left: 0;top: -50px;min-height: calc(100vh + 100px);opacity: 0.25;min-width: 100vw;"/>
+<div class="row mt-3 mb-4">
+  <div class="col-md-3">
+    <a class="btn btn-outline-secondary w-100 mb-1" data-toggle="collapse" href="#provinciaCollapse"
+    role="button" aria-expanded="false" aria-controls="provinciaCollapse">
+    <i class="iconsminds-geo2"></i> Provincia</a>
+  </div>
+  <div class="col-md-3">
+    <a class="btn btn-outline-secondary w-100 mb-1" data-toggle="collapse" href="#provinciaCollapse"
+    role="button" aria-expanded="false" aria-controls="provinciaCollapse">
+    <i class="iconsminds-geo2"></i> Modalidad</a>
+  </div>
+  <div class="col-md-3">
+    <a class="btn btn-outline-secondary w-100 mb-1" data-toggle="collapse" href="#provinciaCollapse"
+    role="button" aria-expanded="false" aria-controls="provinciaCollapse">
+    <i class="iconsminds-geo2"></i> Tipo de puesto</a>
+  </div>
+  <div class="col-md-3">
+    <a class="btn btn-outline-secondary w-100 mb-1" data-toggle="collapse" href="#provinciaCollapse"
+    role="button" aria-expanded="false" aria-controls="provinciaCollapse">
+    <i class="iconsminds-geo2"></i> Carrera</a>
+  </div>
+</div>
+<div class="row mt-3">
+    <div class="col-12 col-md-12">
+      <div class="row">
+        <div class="col-12 ">
+          <h3>Todas las ofertas laborales</h3>
+        </div>
+        <ng-container *ngFor="let el of cur_doc">
+          <div class="col-xl-6 mb-2">
+            <div class="card d-flex flex-row mb-4" >
+              <a class="d-flex" >
+                <img *ngIf="el.logo_empresa" alt="Profile" src="https://bdalumni.evolutionsoluciones.com{{el.logo_empresa}}" class="img-thumbnail border-0 rounded-circle m-4 list-thumbnail align-self-center">
+                <img *ngIf="!el.logo_empresa" alt="Profile" src="/assets/img/company.png" class="img-thumbnail border-0 rounded-circle m-4 list-thumbnail align-self-center">
+              </a>
+              <div class="card-body pl-3 pt-2 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero">
+                <div class="min-width-zero">
+                  <p class="mb-2 text-small font-weight-bold">{{el.modalidad_de_trabajo}}</p>
+                  <p class="mb-2 text-muted text-small">Localidad: {{el.localidad}}, Perú</p>
+                  <p class="mb-2 text-muted text-small">Fin de publicacion: {{el["fin_de_publicación"]}}</p>
+                  <div style="position: absolute;right: 10px;top: 10px;">
+                    <p class="text-center">
+                      <span class="color-theme-1 font-weight-bold text-one">Salario</span>
+                      <br/>S/{{el.desde}} - S/{{el.hasta}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+</div>

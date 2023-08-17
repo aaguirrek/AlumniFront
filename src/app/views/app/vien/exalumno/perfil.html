@@ -1,0 +1,529 @@
+
+<img class="social-header card-img maxh-250 solicialisto" src="/assets/img/social/header.jpg" style="position: fixed;filter: blur(20px);width: auto;left: 0;top: -50px;min-height: calc(100vh + 100px);opacity: 0.25;min-width: 100vw;"/>
+<div class="row">
+<div class="col-lg-9">
+        <Form id="cur_doc">
+
+        <div class="col-12 mb-5 ">
+            <img class="social-header card-img maxh-250" src="/assets/img/social/header.jpg" />
+        </div>
+        <div class="col-12 col-lg-12 col-xl-12 col-left">
+            <img alt="Profile" src="{{cur_doc['foto']?'https://bdalumni.evolutionsoluciones.com'+cur_doc['foto']:'/assets/img/profiles/l-7.jpg'}}" class="img-thumbnail card-img social-profile-img rounded-circle">
+
+            <div class="card mb-4 card-anim">
+                <div class="card-body">
+                    <div class="text-center pt-4">
+                        <p class="list-item-heading pt-4 mt-4">{{cur_doc['nombre']?cur_doc['nombre']:''}} </p>
+                    </div>
+                    <p class="mb-3 text-center">
+                        <button type="button" (click)="ChangeFotoProfile(uploadFile,'foto')" class="badge badge-pill badge-theme-2 mb-4" style="border: none;">
+                            Cambiar foto de perfil
+                        </button>
+                    </p>
+                    <p class="mb-3">    <b>Nombre completo: </b> {{cur_doc['nombre']?cur_doc['nombre']:''}} {{cur_doc['apellidos']!==undefined?cur_doc['apellidos']:"" }}</p>
+                    <p class="mb-3">    <b>{{cur_doc['numero_de_celular']?'Celular:':''}} </b> {{cur_doc['numero_de_celular']?cur_doc['numero_de_celular']:''}}</p>
+                    <p class="mb-3">    <b>{{cur_doc['correo_personal']?"Correo:":''}} </b> {{cur_doc['correo_personal']?cur_doc['correo_personal']:''}}</p>
+                    <p class="text-success font-weight-bold text-small mb-2" *ngIf="cur_doc['experiencia_laboral'].length>0">
+                        {{ cur_doc['experiencia_laboral'][cur_doc['experiencia_laboral'].length-1].cargo  }} en {{ cur_doc['experiencia_laboral'][cur_doc['experiencia_laboral'].length-1].nombre_de_la_empresa  }}
+                    </p>
+                    <p class="text-success font-weight-bold text-small mb-2" *ngIf="cur_doc['experiencia_laboral'].length==0 && cur_doc['educacion_superior'].length>0">
+                        {{ cur_doc['educacion_superior'][cur_doc['educacion_superior'].length-1].grado  }} en {{ cur_doc['educacion_superior'][cur_doc['educacion_superior'].length-1].institucion  }}
+                    </p>
+                    <p class="text-success font-weight-bold text-small mb-2" *ngIf="cur_doc['experiencia_laboral'].length==0 && cur_doc['educacion_superior'].length==0 && cur_doc['educacion_basica'].length>0">
+                        {{ cur_doc['educacion_basica'][cur_doc['educacion_basica'].length-1].grado  }} en {{ cur_doc['educacion_basica'][cur_doc['educacion_basica'].length-1].institucion  }}
+                    </p>
+
+
+                    <p class="mb-3" *ngIf="cur_doc['resumen']!==undefined">{{cur_doc["resumen"]}}</p>
+
+                    <p class="mb-3">{{cur_doc['domicilio']?cur_doc['domicilio']+" - ":''}} {{cur_doc['distrito']?cur_doc['distrito']+", ":''}}{{cur_doc['departamento']?cur_doc['departamento']+",":''}} {{cur_doc['pais_de_residencia']?cur_doc['pais_de_residencia']:''}}</p>
+                    <p class="text-muted text-small mb-2">&nbsp;</p>
+                    <p class="text-muted text-small mb-2"></p>
+                    <div class="social-icons">
+                        <ul class="list-unstyled list-inline">
+                            <button type="button" class="btn btn-outline-primary btn-xs" (click)="openModalPersonal(datos_basicos_modal)">Editar</button>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="admin-container" *ngFor="let field of fields" >
+                    <div class="card mb-4" *ngIf="field.el.hidden!==1" attr.data-fieldname="{{field.el.name}}" attr.data-label="{{field.el.label}}">
+                        <div class="card-body">
+                            <div class="card-header pl-0">
+                                <h2 class="card-title">{{field.el.label}}</h2>
+                            </div>
+                            <div class="row">
+                                <div class="{{field.classes}}" *ngFor="let child of field.childs">
+                                    <div class="form-content"  *ngFor="let control of child">
+                                        <div class="form-group" *ngIf="control.fieldtype == 'Select'">
+                                            <label for="{{control.fieldname}}">{{control.label}}</label>
+                                            <select attr.data-fieldtype="{{control.fieldtype}}" name="{{control.fieldname}}"
+                                            id="{{control.fieldname}}"
+                                            class="form-control">
+                                                <option *ngFor="let option of control.options" value="{{option}}"
+                                                [selected]="cur_doc[control.fieldname]=== option">{{option}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group" *ngIf="control.fieldtype === 'Read Only'">
+                                            <label for="{{control.fieldname}}">{{control.label}}</label>
+                                            <input type="text" attr.data-fieldtype="{{control.fieldtype}}"  attr.data-mandatory="{{control.reqd}}" attr.data-listview="{{control.in_list_view}}"  name="{{control.fieldname}}" id="{{control.fieldname}}" disabled class="form-control"
+                                            value="{{cur_doc[control.fieldname]?cur_doc[control.fieldname]:''}}">
+                                        </div>
+                                        <div class="form-group" *ngIf="control.fieldtype === 'Int'">
+                                            <label for="{{control.fieldname}}">{{control.label}}</label>
+                                            <input type="number" attr.data-fieldtype="{{control.fieldtype}}"
+                                            attr.data-mandatory="{{control.reqd}}" attr.data-listview="{{control.in_list_view}}"
+                                            name="{{control.fieldname}}" id="{{control.fieldname}}"
+                                             class="form-control" value="{{cur_doc[control.fieldname]?cur_doc[control.fieldname]:0}}">
+                                        </div>
+                                        <div class="form-group" *ngIf="control.fieldtype === 'Attach'">
+                                            <label for="{{control.fieldname}}">{{control.label}}</label>
+                                            <input
+                                                    type="text"
+                                                    attr.data-fieldtype="{{control.fieldtype}}"
+                                                    attr.data-mandatory="{{control.reqd}}"
+                                                    attr.data-listview="{{control.in_list_view}}"
+                                                    name="{{control.fieldname}}"
+                                                    id="{{control.fieldname}}"
+                                                    class="form-control"
+                                                    value="{{cur_doc[control.fieldname]?cur_doc[control.fieldname]:''}}">
+
+                                            <button type="button" class="btn btn-sm btn-secondary"
+                                            (click)="openUploadFile(uploadFile, control.fieldtype, control.fieldname )">
+                                            Agregar</button>
+                                        </div>
+                                        <div class="form-group" *ngIf="control.fieldtype === 'Attach Image'">
+                                            <label for="{{control.fieldname}}">{{control.label}}</label>
+                                            <input
+                                                type="text"
+                                                attr.data-fieldtype="{{control.fieldtype}}"
+                                                attr.data-mandatory="{{control.reqd}}"
+                                                attr.data-listview="{{control.in_list_view}}"
+                                                name="{{control.fieldname}}"
+                                                id="{{control.fieldname}}"
+                                                class="form-control"
+                                                value="{{cur_doc[control.fieldname]?cur_doc[control.fieldname]:''}}">
+
+                                        <button type="button" class="btn btn-sm btn-secondary"
+                                        (click)="openUploadFile(uploadFile, control.fieldtype, control.fieldname )">
+                                        Agregar</button>
+                                        </div>
+                                        <div class="form-group" *ngIf="control.fieldtype === 'Table'">
+                                            <table class="table table-striped table-responsive-md" *ngIf="tableData[control.fieldname].length>0">
+                                                <thead>
+                                                    <tr>
+                                                        <ng-container *ngFor="let thead of control.table">
+                                                            <th *ngIf="thead.in_list_view==1">{{thead.label}}</th>
+                                                        </ng-container>
+                                                        <th class="text-right">Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <ng-container *ngFor="let row of tableData[control.fieldname]">
+
+                                                        <tr>
+                                                            <ng-container *ngFor="let el of row | keyvalue: asIsOrder; let i = index">
+                                                                <td  *ngIf="el.value.in_list_view == '1'">{{el.value.name}}</td>
+                                                            </ng-container>
+                                                            <td class="text-right">
+                                                                <span class="badge badge-pill mr-2 badge-primary cursor-pointer" (click)="openModal(template, control.options, control.fieldname, row)" >EDITAR</span>
+                                                                <span class="badge badge-pill badge-danger cursor-pointer" (click)="delete_row_table( control.fieldname,row)">ELIMINAR</span>
+                                                            </td>
+                                                        </tr>
+                                                    </ng-container>
+
+                                                </tbody>
+                                            </table>
+                                            <div  *ngIf="tableData[control.fieldname].length==0">
+
+                                                <img id="imgUploadFile" src="/assets/img/gif/17-avatar-man-nodding-gradient.gif" style="max-height: 130px;display: block;margin: auto;margin-bottom: 20px;"/>
+                                                <h3 style="text-align: center;" class="mb-3">Todavia no hay {{field.el.label}}</h3>
+                                            </div>
+
+                                            <button type="button" class="btn btn-sm btn-secondary" style="margin: auto;display: block;"  (click)="openModal(template, control.options, control.fieldname )">Agregar</button>
+                                        </div>
+                                        <div class="form-group" *ngIf="control.fieldtype === 'Data'">
+                                            <label for="{{control.fieldname}}">{{control.label}}</label>
+                                            <input type="text"  attr.data-fieldtype="{{control.fieldtype}}"
+                                             attr.data-mandatory="{{control.reqd}}" attr.data-listview="{{control.in_list_view}}"  name="{{control.fieldname}}"
+                                             id="{{control.fieldname}}" class="form-control"
+                                             value="{{cur_doc[control.fieldname]?cur_doc[control.fieldname]:''}}">
+                                        </div>
+                                        <div class="form-group" *ngIf="control.fieldtype === 'Link'">
+                                            <label for="{{control.fieldname}}">{{control.label}}</label>
+                                            <input type="text"    attr.data-fieldtype="{{control.fieldtype}}"   attr.data-mandatory="{{control.reqd}}" attr.data-listview="{{control.in_list_view}}"  name="{{control.fieldname}}" id="{{control.fieldname}}" class="form-control" (keyup)="LinkInput($event, control.options)"
+                                            value="{{cur_doc[control.fieldname]?cur_doc[control.fieldname]:''}}">
+                                            <div class="result" id="result-{{control.fieldname}}" style="display: none;">
+                                                <ul>
+                                                    <ng-container *ngIf="control.fieldname == resultLink.fieldname">
+                                                        <li *ngFor="let result of resultLink.data | keyvalue" (click)="setLink(result.value.name,control.fieldname)" >{{result.value.title_field}}</li>
+                                                    </ng-container>
+                                                    <li (click)="NewLink(template, control.options )">+ Agregar Elemento</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" *ngIf="control.fieldtype === 'Date'">
+                                            <label for="{{control.fieldname}}">{{control.label}}</label>
+                                            <input type ="text"   attr.data-fieldtype="{{control.fieldtype}}"  name="{{control.fieldname}}" id="{{control.fieldname}}" placeholder="{{control.fieldname}}" class= "form-control" bsDatepicker [container]="'html'" [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'YYYY-MM-DD' }"
+                                            value="{{cur_doc[control.fieldname]?cur_doc[control.fieldname]:''}}">
+                                        </div>
+                                        <div class="form-group" *ngIf="control.fieldtype === 'Float'">
+                                            <label for="{{control.fieldname}}">{{control.label}}</label>
+                                            <input type="number"   attr.data-fieldtype="{{control.fieldtype}}"  name="{{control.fieldname}}" id="{{control.fieldname}}" class="form-control"
+                                            value="{{cur_doc[control.fieldname]?cur_doc[control.fieldname]:0}}">
+                                        </div>
+                                        <div class="form-group" *ngIf="control.fieldtype === 'Text'">
+                                            <label for="{{control.fieldname}}">{{control.label}}</label>
+                                            <textarea
+                                                type="text"
+                                                attr.data-fieldtype="{{control.fieldtype}}"
+                                                name="{{control.fieldname}}"
+                                                id="{{control.fieldname}}"
+                                                class="form-control"
+                                                value="{{cur_doc[control.fieldname]?cur_doc[control.fieldname]:0}}"
+                                                rows="10"
+                                            ></textarea>
+
+                                        </div>
+                                        <div class="form-group" *ngIf="control.fieldtype === 'Long Text'">
+                                            <label for="{{control.fieldname}}">{{control.label}}</label>
+                                            <textarea
+                                                type="text"
+                                                attr.data-fieldtype="{{control.fieldtype}}"
+                                                name="{{control.fieldname}}"
+                                                id="{{control.fieldname}}"
+                                                class="form-control"
+                                                value="{{cur_doc[control.fieldname]?cur_doc[control.fieldname]:0}}"
+                                                rows="15"
+                                            ></textarea>
+
+                                        </div>
+                                        <div class="form-group" *ngIf="control.fieldtype === 'Small Text'">
+                                            <label for="{{control.fieldname}}">{{control.label}}</label>
+                                            <textarea
+                                                type="text"
+                                                attr.data-fieldtype="{{control.fieldtype}}"
+                                                name="{{control.fieldname}}"
+                                                id="{{control.fieldname}}"
+                                                class="form-control"
+                                                value="{{cur_doc[control.fieldname]?cur_doc[control.fieldname]:0}}"
+                                                rows="6"
+                                            ></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <div class="col-12">
+          <div class="card mb-4 card-anim bg-secondary text-white">
+              <div class="card-body text-white">
+                <h2 class="mb-4 card-title text-white">Datos Personales</h2>
+                <div class="row">
+                  <div class="col-md-6 text-white">
+                    <p><b>Código del estudiante:</b> {{cur_doc['codigo_del_estudiante']}}</p>
+                    <p><b>DNI:</b> {{cur_doc['dni']}}</p>
+                  </div>
+                  <div class="col-md-6 text-white">
+                    <p><b>Fecha de nacimiento:</b> {{cur_doc['fecha_de_nacimiento'] }}</p>
+                    <p><b>Correo institucional:</b> {{cur_doc['correo_del_egresado']}}</p>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <ng-template #template>
+            <div class="modal-header">
+            <h4 class="modal-title pull-left" *ngIf="tableName !=='Experiencia laboral'">{{tableName}}</h4>
+            <h4 class="modal-title pull-left" *ngIf="tableName ==='Experiencia laboral'">Experiencia Profesional</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" attr.data-fieldtype="Hidden"  attr.data-mandatory="0" attr.data-listview="0"  name="table_row_name" id="table_row_name" disabled>
+                <input type="hidden" attr.data-fieldtype="Hidden"  attr.data-mandatory="0" attr.data-listview="0"  name="table_row_idx" id="table_row_idx" disabled>
+                <Form id="table_{{tableFieldName}}" class="admin-container" *ngFor="let field of tableFields">
+                    <div class="row">
+                        <div class="{{field.classes}}" *ngFor="let child of field.childs">
+
+
+                            <div class="form-content"  *ngFor="let control of child">
+                                <div class="form-group" *ngIf="control.fieldtype == 'Select'">
+                                    <label for="{{control.fieldname}}">{{control.label}}</label>
+                                    <select attr.data-fieldtype="{{control.fieldtype}}" attr.data-mandatory="{{control.reqd}}" attr.data-listview="{{control.in_list_view}}"  name="{{control.fieldname}}" id="{{control.fieldname}}" class="form-control">
+                                        <option *ngFor="let option of control.options" value="{{option}}">{{option}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group" *ngIf="control.fieldtype === 'Read Only'">
+                                    <label for="{{control.fieldname}}">{{control.label}}</label>
+                                    <input type="text" attr.data-fieldtype="{{control.fieldtype}}"  attr.data-mandatory="{{control.reqd}}" attr.data-listview="{{control.in_list_view}}"  name="{{control.fieldname}}" id="{{control.fieldname}}" disabled class="form-control">
+                                </div>
+                                <div class="form-group" *ngIf="control.fieldtype === 'Int'">
+                                    <label for="{{control.fieldname}}">{{control.label}}</label>
+                                    <input type="number" attr.data-fieldtype="{{control.fieldtype}}"  attr.data-mandatory="{{control.reqd}}" attr.data-listview="{{control.in_list_view}}"  name="{{control.fieldname}}" id="{{control.fieldname}}" class="form-control">
+                                </div>
+                                <div class="form-group" *ngIf="control.fieldtype === 'Attach'">
+                                    <label for="{{control.fieldname}}" style=" display: block; ">{{control.label}}</label>
+                                    <button type="button" class="btn btn-sm btn-secondary"
+                                    (click)="openUploadFile(uploadFile, control.fieldtype, control.fieldname )">
+                                    Agregar</button>
+                                    <input
+                                            type="text"
+                                            attr.data-fieldtype="{{control.fieldtype}}"
+                                            attr.data-mandatory="{{control.reqd}}"
+                                            attr.data-listview="{{control.in_list_view}}"
+                                            name="{{control.fieldname}}"
+                                            id="{{control.fieldname}}"
+                                            class="form-control like-text" disabled>
+
+
+
+                                </div>
+                                <div class="form-group" *ngIf="control.fieldtype === 'Attach Image'">
+                                    <label for="{{control.fieldname}}" style=" display: block; ">{{control.label}}</label>
+                                    <button type="button" class="btn btn-sm btn-secondary"
+                                    (click)="openUploadFile(uploadFile, control.fieldtype, control.fieldname )">
+                                    Agregar</button>
+                                    <input
+                                            type="text"
+                                            attr.data-fieldtype="{{control.fieldtype}}"
+                                            attr.data-mandatory="{{control.reqd}}"
+                                            attr.data-listview="{{control.in_list_view}}"
+                                            name="{{control.fieldname}}"
+                                            id="{{control.fieldname}}"
+                                            class="form-control like-text" disabled>
+
+
+
+                                </div>
+                                <div class="form-group" *ngIf="control.fieldtype === 'Data'">
+                                    <label for="{{control.fieldname}}">{{control.label}}</label>
+                                    <input type="text"attr.data-mandatory="{{control.reqd}}" attr.data-listview="{{control.in_list_view}}"  name="{{control.fieldname}}" id="{{control.fieldname}}" class="form-control">
+                                </div>
+                                <div class="form-group" *ngIf="control.fieldtype === 'Link'">
+                                    <label for="{{control.fieldname}}">{{control.label}}</label>
+                                    <input type="text" attr.data-fieldtype="{{control.fieldtype}}"  attr.data-mandatory="{{control.reqd}}" attr.data-listview="{{control.in_list_view}}"  name="{{control.fieldname}}" id="{{control.fieldname}}" class="form-control" (keyup)="LinkInput($event, control.options)">
+                                    <div class="result" id="result-{{control.fieldname}}" style="display: none;">
+                                        <ul>
+                                            <ng-container *ngIf="control.fieldname == resultLink.fieldname">
+                                                <li *ngFor="let result of resultLink.data | keyvalue" (click)="setLink(result.value.name,control.fieldname)" >{{result.value.title_field}}</li>
+                                            </ng-container>
+                                            <li (click)="NewLink(template, control.options )">+ Agregar Elemento</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="form-group" *ngIf="control.fieldtype === 'Date'">
+                                    <label for="{{control.fieldname}}">{{control.label}}</label>
+                                    <input type ="text" attr.data-fieldtype="{{control.fieldtype}}" attr.data-mandatory="{{control.reqd}}" attr.data-listview="{{control.in_list_view}}" name="{{control.fieldname}}" id="{{control.fieldname}}" placeholder ="{{control.fieldname}}" class = "form-control" bsDatepicker [container]="'html'" [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'YYYY-MM-DD' }" >
+                                </div>
+                                <div class="form-group" *ngIf="control.fieldtype === 'Float'">
+                                    <label for="{{control.fieldname}}">{{control.label}}</label>
+                                    <input type="number"  attr.data-fieldtype="{{control.fieldtype}}"  name="{{control.fieldname}}" id="{{control.fieldname}}" class="form-control">
+                                </div>
+                                <div class="form-group" *ngIf="control.fieldtype === 'Small Text'">
+                                    <label for="{{control.fieldname}}">{{control.label}}</label>
+                                    <textarea
+                                        type="text"
+                                        attr.data-fieldtype="{{control.fieldtype}}"
+                                        name="{{control.fieldname}}"
+                                        id="{{control.fieldname}}"
+                                        class="form-control"
+                                        value="{{cur_doc[control.fieldname]?cur_doc[control.fieldname]:0}}"
+                                        rows="6"
+                                    ></textarea>
+                                </div>
+                                <div class="form-group" *ngIf="control.fieldtype === 'Text'">
+                                    <label for="{{control.fieldname}}">{{control.label}}</label>
+                                    <textarea
+                                        type="text"
+                                        attr.data-fieldtype="{{control.fieldtype}}"
+                                        name="{{control.fieldname}}"
+                                        id="{{control.fieldname}}"
+                                        class="form-control"
+                                        value="{{cur_doc[control.fieldname]?cur_doc[control.fieldname]:0}}"
+                                        rows="6"
+                                    ></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </Form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-primary" (click)="addTableData(tableFieldName)">Guardar</button>
+            </div>
+    </ng-template>
+    <ng-template #uploadFile>
+        <div class="modal-header">
+        <h4 class="modal-title pull-left">Subir Archivo</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="attahRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+
+
+
+            <label for="inputUploadFile" style="display: block;margin: auto;text-align: center;font-size: 1rem;">
+              <img id="imgUploadFile" src="/assets/img/gif/49-plus-circle-gradient.gif" style="max-height: 60px;display: block;margin: auto;margin-bottom: 20px;"/>
+              Selecciona el archivo</label>
+            <input type="file" id="inputUploadFile" class="d-none" (change)="changeFile()">
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-primary" (click)="AttachFile()">Subir Archivo</button>
+
+        </div>
+    </ng-template>
+
+
+
+
+
+    <ng-template #datos_basicos_modal>
+            <div class="modal-header">
+            <h4 class="modal-title pull-left">Edita tus datos personales</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="personalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <Form id="basico_datos_personales" class="admin-container">
+                    <div class="row">
+                        <div class="col-md-12" >
+                            <div class="form-content">
+                                <div class="form-group">
+                                    <label for="correo_personal">Correo</label>
+                                    <input type="text" attr.data-mandatory="1"  name="correo_personal" id="correo_personal" class="form-control" value="{{cur_doc['correo_personal']?cur_doc['correo_personal']:''}}"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="numero_de_celular">Celular</label>
+                                    <input type="text" attr.data-mandatory="1"  name="numero_de_celular" id="numero_de_celular" class="form-control" value="{{cur_doc['numero_de_celular']?cur_doc['numero_de_celular']:''}}"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="numero_de_celular">Genero</label>
+                                    <select type="text" attr.data-mandatory="1"  name="genero" id="genero" class="form-control">
+                                      <option [selected]="cur_doc['genero']=='Femenino'" value="Femenino">Femenino</option>
+                                      <option [selected]="cur_doc['genero']=='Másculino'" value="Másculino">Masculino</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="numero_de_celular">Estado Civil</label>
+                                    <select type="text" attr.data-mandatory="1"  name="estado_civil" id="estado_civil" class="form-control">
+                                      <option [selected]="cur_doc['estado_civil']=='Soltero'" value="Soltero">Soltero</option>
+                                      <option [selected]="cur_doc['estado_civil']=='Casado'" value="Casado">Casado</option>
+                                      <option [selected]="cur_doc['estado_civil']=='Divorciado'" value="Divorciado">Divorciado</option>
+                                      <option [selected]="cur_doc['estado_civil']=='Viudo'" value="Viudo">Viudo</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pais_de_residencia">País</label>
+
+                                    <input type="text"
+                                    attr.data-fieldtype="Link"
+                                    attr.data-mandatory="1"
+                                    attr.data-listview="1"
+                                    name="pais_de_residencia"
+                                    id="pais_de_residencia"
+                                    class="form-control"
+                                    (keyup)="LinkInput($event, 'Country')"
+                                    value="{{cur_doc['pais_de_residencia']?cur_doc['pais_de_residencia']:''}}">
+
+                                            <div class="result" id="result-pais_de_residencia" style="display: none;">
+                                                <ul>
+                                                    <ng-container *ngIf="'pais_de_residencia' == resultLink.fieldname">
+                                                        <li *ngFor="let result of resultLink.data | keyvalue" (click)="setLink(result.value.name,'pais_de_residencia')" >
+                                                            {{result.value.title_field}}</li>
+                                                    </ng-container>
+                                                   <!-- <li (click)="NewLink(template, 'Country' )">+ Agregar Elemento</li> -->
+                                                </ul>
+                                            </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pais_de_residencia">Departamento</label>
+                                    <input type="text" attr.data-mandatory="1"  name="departamento" id="departamento" class="form-control" value="{{cur_doc['departamento']?cur_doc['departamento']:''}}"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pais_de_residencia">Provincia</label>
+                                    <input type="text" attr.data-mandatory="1"  name="provincia" id="provincia" class="form-control" value="{{cur_doc['provincia']?cur_doc['provincia']:''}}"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pais_de_residencia">Distrito</label>
+                                    <input type="text" attr.data-mandatory="1"  name="distrito" id="distrito" class="form-control"  value="{{cur_doc['distrito']?cur_doc['distrito']:''}}"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pais_de_residencia">Domicilio</label>
+                                    <input type="text" attr.data-mandatory="1"  name="domicilio" id="domicilio" class="form-control" value="{{cur_doc['domicilio']?cur_doc['domicilio']:''}}"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pais_de_residencia">Resumen</label>
+                                    <textarea type="text" attr.data-mandatory="1" rows="10"  name="resumen" id="resumen" class="form-control" value="{{cur_doc['resumen']?cur_doc['resumen']:''}}"></textarea>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </Form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-primary" (click)="OnGuardarDatosBasicos()">Guardar</button>
+            </div>
+    </ng-template>
+    </Form>
+
+</div>
+<div class="col-lg-3">
+
+    <div class="col-12 text-right">
+        <button type="button" class="btn btn-sm btn-primary float-right top-right-button"
+        (click)="OnGuardar()">Guardar</button>
+    </div>
+    <div class="card bg-dark mb-4 mt-5">
+        <div class="card-body text-white">
+            <h2>Tienes un emprendimiento?</h2>
+            <p>Ingresa los datos de tu emprendimiento y haz saber a todos los egresados de alumni</p>
+            <a class="btn btn-outline-light btn-xs" [routerLink]="'/app/vien/emprendedores'">Cargar un emprendimiento</a>
+        </div>
+    </div>
+    <div class="card bg-secondary mb-4 mt-5">
+        <div class="card-body">
+            <h2>Descarga tu cv</h2>
+            <p>Para descargar tu CV asegurate de haber completado todos los campos&nbsp;de&nbsp;tu&nbsp;perfil</p>
+            <a class="btn btn-outline-light btn-xs" href=
+
+            "https://bdalumni.evolutionsoluciones.com/api/method/frappe.utils.weasyprint.download_pdf?doctype=Perfil+del+exalumno&name={{cur_doc['name']}}&print_format=CV"
+            target="_blank">Descarga tu CV</a>
+        </div>
+    </div>
+    <div class="card bg-primary">
+        <div class="card-body">
+            <h2>Mis documentos</h2>
+            <ng-container *ngFor="let file of DocFiles">
+                <p class="mb-3 text-break uploadfile">
+                    <a class="text-white" [href]="file['file_url']?'https://bdalumni.evolutionsoluciones.com'+file['file_url']:''"  target="_blank">{{file['file_name']?file['file_name']:''}}</a>
+                </p>
+
+            </ng-container>
+            <p class="mb-3" *ngIf="DocFiles.length===0">    <b>Todavia no has subido ningún documento</b></p>
+
+
+
+            <button type="button" class="btn btn-outline-light btn-xs" (click)="openUploadFile(uploadFile )" >Sube un documento</button>
+        </div>
+    </div>
+    <div class="text-center">
+
+        <a class="btn btn-success rounded-circle mt-4  mb-3 mr-2" href="https://api.whatsapp.com/send?phone=51{{cur_doc['numero_de_celular']?cur_doc['numero_de_celular']:''}}" target="_blank" style="width: 54px!important; padding: 10px; height: 54px!important;"><img src="/assets/wp.png" class="img-fluid"> </a>
+        <a class="btn btn-primary btn-circle mt-4  mb-3 mr-2" href="#"><i class="icon-button simple-icon-social-facebook"></i> </a>
+        <a class="btn btn-primary btn-circle mt-4  mb-3 mr-2" href="#"><i class="icon-button simple-icon-social-linkedin"></i></a>
+    </div>
+</div>
+<simple-notifications></simple-notifications>

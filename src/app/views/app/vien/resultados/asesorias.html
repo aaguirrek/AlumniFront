@@ -1,0 +1,29 @@
+
+<img class="social-header card-img maxh-250 solicialisto" src="/assets/img/social/header.jpg" style="position: fixed;filter: blur(20px);width: auto;left: 0;top: -50px;min-height: calc(100vh + 100px);opacity: 0.25;min-width: 100vw;"/>
+<div class="row">
+  <div class="col-md-12" >
+    <h1 class="card-title">Este es tu nivel actualmente</h1>
+    <div class="card mb-4 ">
+      <div class="card-body">
+        <div>
+          <div class="row">
+            <div class="col-md-5">
+              <h1 class="card-title text-primary"> Diagrama de cualidades</h1>
+              <div [class]="class"><canvas #chart></canvas></div>
+            </div>
+            <div class="col-md-7">
+              <h1 class="card-title text-primary"> Big Data y Ciencia de datos</h1>
+              <h3 class="card-title text-secondary"> Programación: 5.5/10</h3>
+              <h3 class="card-title text-secondary"> Base de datos: 5.5/10</h3>
+              <h3 class="card-title text-secondary"> Estadística: 5.5/10</h3>
+            </div>
+          </div>
+        </div>
+        <div class="text-center">
+          <a [routerLink]="'../gestorcarreras'"  class="btn btn-secondary btn-secondary-gradient text-light mt-2"  >Regresar al Gestor de carreras</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,179 @@
+
+<img class="social-header card-img maxh-250 solicialisto" src="/assets/img/social/header.jpg" style="position: fixed;filter: blur(20px);width: auto;left: 0;top: -50px;min-height: calc(100vh + 100px);opacity: 0.25;min-width: 100vw;"/>
+<div class="row"  >
+    <div class="col-12 text-right mb-4" >
+        <span>Tienes un emprendimiento?</span>
+        <button type="button" class="btn btn-sm btn-primary float-right top-right-button" (click)="Emprende(modalEmprendedores)"
+        >Agrega tu emprendimiento</button>
+    </div>
+    <div class="col-md-12" *ngIf="doc_list.length<1">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h1 class="card-title">Emprendedores</h1>
+                <div class="text-center">
+                    <img src="/assets/img/gif/112-book-morph-flat.gif" class="img-fluid m-auto" alt="ups" style="max-height: 200px;">
+                </div>
+                <h3 class="mb-3 truncate text-center">Ups! aquí no hay nada</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12" *ngIf="doc_list.length>0">
+        <h1 class="text-primary mb-4 font-weight-bold">Emprendedores</h1>
+        <div class="row mb-3">
+            <div class="col-md-4" *ngFor="let pendiente of doc_list">
+                <div class="card">
+                    <div class="card-body text-center ">
+                        <h3 class="card-title mb-4">{{pendiente.empresa}}</h3>
+                        <img src="https://bdalumni.evolutionsoluciones.com{{pendiente.logo}}" alt="" class="rounded-circle w-30 mb-3">
+                        <h5 class="text-primary">{{pendiente.nombre}}</h5>
+                        <h5 class="mb-3">{{pendiente.telf}} - {{pendiente.email}}</h5>
+                        <hr>
+                        <a href="{{pendiente.web}}" target="_blank">{{pendiente.web}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #modalEmprendedores>
+    <div class="modal-header">
+    <h4 class="modal-title pull-left">Datos del Emprendimiento</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        <Form id="basico_datos_personales" class="admin-container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6" >
+                            <div class="form-content">
+                                <div class="form-group">
+                                    <label for="correo_personal">Nombre de la empresa/emprendimiento (*)</label>
+                                    <input type ="text"
+                                    placeholder ="Empresa pedrito"
+                                    class="form-control"
+                                    name="empresa"
+                                    id="empresa"
+                                    >
+                                </div>
+                                <div class="form-group">
+                                    <label for="correo_personal">RUC (*)</label>
+                                    <input type ="text"
+                                    placeholder ="2020202021"
+                                    class="form-control"
+                                    name="ruc"
+                                    id="ruc"
+                                    >
+                                </div>
+                                <div class="form-group">
+                                    <label for="correo_personal">Pagina web</label>
+                                    <input type ="text"
+                                    placeholder ="https://www.example.com"
+                                    class="form-control"
+                                    name="web"
+                                    id="web"
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" >
+                            <div class="form-content">
+                                <div class="form-group">
+                                    <label for="correo_personal">Enlace youtube (video de servicios de la empresa)</label>
+                                    <input type ="text"
+                                    placeholder ="https://youtu.be/wAsOd"
+                                    class="form-control"
+                                    name="yt"
+                                    id="yt"
+                                    >
+                                </div>
+                                <div class="form-group">
+                                    <label for="correo_personal">Enlace Instagram/FB </label>
+                                    <input type ="text"
+                                    placeholder ="https://instagram.com/p/odasd123"
+                                    class="form-control"
+                                    name="redes"
+                                    id="redes"
+                                    >
+                                </div>
+                                <div class="form-group">
+                                    <label for="correo_personal">Logo</label>
+                                    <br />
+                                    <input type="text" class="d-none" name="logo" id="logo">
+                                    <button type="button" class="btn btn-sm btn-secondary" (click)="openUploadFile(uploadFile, 'AttachFile', 'logo' )"> {{ filename }}</button>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-12">
+                  <h4>Datos de Contacto: (*)</h4>
+                  <hr>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="correo_personal">Nombre</label>
+                        <input type ="text"
+                        placeholder ="Pedro"
+                        class="form-control"
+                        name="nombre"
+                        id="nombre"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="correo_personal">Telefono</label>
+                        <input type ="text"
+                        placeholder ="+51999999999"
+                        class="form-control"
+                        name="telf"
+                        id="telf"
+                        >
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="correo_personal">Correo</label>
+                        <input type ="text"
+                        placeholder ="alguien@ejemplo.com"
+                        class="form-control"
+                        name="email"
+                        id="email"
+                        >
+                    </div>
+                </div>
+            </div>
+
+        </Form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-primary" (click)="emprender()">Guardar</button>
+    </div>
+</ng-template>
+<ng-template #uploadFile>
+    <div class="modal-header">
+    <h4 class="modal-title pull-left">Subir Archivo</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="attahRef.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+
+
+        <label for="inputUploadFile" style="display: block;margin: auto;text-align: center;font-size: 1rem;">
+          <img id="imgUploadFile" src="/assets/img/gif/49-plus-circle-gradient.gif" style="max-height: 60px;display: block;margin: auto;margin-bottom: 20px;"/>
+          Selecciona el archivo</label>
+        <input type="file" id="inputUploadFile" class="d-none" (change)="changeFile()">
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-primary" (click)="AttachFile()">Subir Archivo</button>
+
+    </div>
+</ng-template>
+
+<simple-notifications></simple-notifications>

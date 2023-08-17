@@ -1,0 +1,250 @@
+<img class="social-header card-img maxh-250 solicialisto" src="/assets/img/social/header.jpg" style="position: fixed;filter: blur(20px);width: auto;left: 0;top: -50px;min-height: calc(100vh + 100px);opacity: 0.25;min-width: 100vw;"/>
+<div class="row mt-3 mb-4">
+  <div class="col-md-3">
+    <a class="btn btn-outline-secondary w-100 mb-1" (click)="showModal(SProvincia,'provincia')">
+    <i class="iconsminds-geo2"></i> {{values["provincia"]}}</a>
+  </div>
+  <div class="col-md-3">
+    <a class="btn btn-outline-secondary w-100 mb-1" (click)="showModal(SModalidad,'modalidad')">
+    <i class="iconsminds-geo2"></i> {{values["modalidad"]}}</a>
+  </div>
+  <div class="col-md-3">
+    <a class="btn btn-outline-secondary w-100 mb-1" (click)="showModal(STipoDePuesto,'tipoDePuesto')">
+    <i class="iconsminds-geo2"></i>  {{values["tipoDePuesto"]}}</a>
+  </div>
+  <div class="col-md-3">
+    <a class="btn btn-outline-secondary w-100 mb-1" (click)="showModal(SCarrera,'carreras')">
+    <i class="iconsminds-geo2"></i> {{values["carreras"]}}</a>
+  </div>
+</div>
+<div class="row mt-3">
+
+  <div class="col-md-12" *ngIf="cur_doc.length<1">
+    <div class="card mb-4 ">
+        <div class="card-body">
+            <h1 class="card-title">Ofetas Laborales</h1>
+            <div class="text-center">
+
+                <img src="/assets/img/gif/112-book-morph-flat.gif" class="img-fluid m-auto" alt="ups" style="max-height: 200px;">
+            </div>
+            <h3 class="mb-3 truncate text-center">Ups! aquí no hay nada</h3>
+        </div>
+    </div>
+  </div>
+
+
+    <div class="col-12 col-md-12" *ngIf="cur_doc.length>0">
+      <div class="row">
+        <div class="col-12 ">
+          <h3>Todas las ofertas laborales</h3>
+        </div>
+
+        <ng-container *ngFor="let el of cur_doc">
+          <div class="col-xl-6 mb-2">
+            <div class="card" >
+              <div class="card-body pl-0 pr-0">
+                <div class="row mr-0">
+                  <div class="col-xxl-3 d-xl-none d-xxl-block">
+                    <a class="d-flex" [routerLink]="'./'+el.name" >
+                      <img *ngIf="el.logo_empresa" alt="Profile" src="https://bdalumni.evolutionsoluciones.com{{el.logo_empresa}}" class="img-thumbnail border-0 rounded-circle m-4 list-thumbnail align-self-center">
+                      <img *ngIf="!el.logo_empresa" alt="Profile" src="/assets/img/company.png" class="img-thumbnail border-0 rounded-circle m-4 list-thumbnail align-self-center">
+                    </a>
+                  </div>
+                  <div class="col-12 col-md-7 col-xl-8 col-xxl-6 ">
+                    <a [routerLink]="'./'+el.name">
+                      <p class="list-item-heading mb-1 truncate text-primary text-bold" style="max-width:calc(40vw - 320px)">{{el.oferta}}</p>
+                    </a>
+                    <p class="mb-2 text-small font-weight-bold">{{el.modalidad_de_trabajo}}</p>
+                    <p class="mb-2 text-muted text-small">Localidad: {{el.localidad}}, Perú</p>
+                    <p class="mb-2 text-muted text-small">Fin de publicacion: {{el["fin_de_publicación"]}}</p>
+                    <ng-container *ngIf="el.mostrar_salario != 'No'">
+
+                      <p class="d-block d-sm-block d-md-none d-lg-none mb-2 text-muted text-small" *ngIf="el.hasta !='0'">Salario: S/{{el.desde}} - S/{{el.hasta}}</p>
+                      <p class="d-block d-sm-block d-md-none d-lg-none mb-2 text-muted text-small" *ngIf="el.hasta =='0'">Salario: S/{{el.desde}}</p>
+                    </ng-container>
+                  </div>
+                  <div class="d-none d-md-block col-md-5 col-xl-4 col-xxl-3 p-0" *ngIf="el.mostrar_salario != 'No'">
+                    <p class="text-center" *ngIf="el.hasta !='0'">
+                      <span class="color-theme-1 font-weight-bold text-one">Salario</span>
+                      <br/>S/{{el.desde}} - S/{{el.hasta}}
+                    </p>
+                    <p class="text-center" *ngIf="el.hasta =='0'">
+                      <span class="color-theme-1 font-weight-bold text-one">Salario</span>
+                      <br/>S/{{el.desde}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+</div>
+
+
+<ng-template #SProvincia>
+
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Selecciona la provincia</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal('provincia')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('provincia','Amazonas')">Amazonas</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('provincia','Amazonas')">Áncash</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('provincia','Arequipa')">Arequipa</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('provincia','Ayacucho')">Ayacucho</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('provincia','Cajamarca')">Cajamarca</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('provincia','Callao')">Callao</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('provincia','Huancavelica')">Huancavelica</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('provincia','Huánuco')">Huánuco</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('provincia','Junín')">Junín</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('provincia','Ica')">Ica</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('provincia','La Libertad')">La Libertad</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('provincia','Lambayeque')">Lambayeque</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('provincia','Lima')">Lima</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('provincia','Madre de Dios')">Madre de Dios</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('provincia','Pasco')">Pasco</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('provincia','Piura')">Piura</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('provincia','Loreto')">Loreto</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('provincia','San Martín')">San Martín</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('provincia','Tacna')">Tacna</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('provincia','Tumbes')">Tumbes</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('provincia','Ucayali')">Ucayali</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('provincia','Moquegua')">Moquegua</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('provincia','Cusco')">Cusco</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('provincia','Apurímac')">Apurímac</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('provincia','Puno')">Puno</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('provincia','Exterior')">Exterior</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('provincia','Todos')">Todos</button>
+        </div>
+      </div>
+    </div>
+</ng-template>
+<ng-template #SModalidad>
+
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Selecciona la Modalidad de trabajo</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('modalidad','Presencial')">Presencial</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('modalidad','Mixto')">Mixto</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('modalidad','Remoto')">Remoto</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('modalidad','Todos')">todos</button>
+        </div>
+      </div>
+    </div>
+</ng-template>
+<ng-template #STipoDePuesto>
+
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Selecciona el tipo de puesto</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal('tipoDePuesto')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('tipoDePuesto','Temporal o Por proyecto')">Temporal o Por proyecto</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('tipoDePuesto','Tiempo completo')">Tiempo completo</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('tipoDePuesto','Tiempo parcial/Medio Tiempo')">Tiempo parcial/Medio Tiempo</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('tipoDePuesto','Practicas Profesionales')">Practicas Profesionales</button>
+        </div>
+        <div class="col-md-6 mb-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('tipoDePuesto','Todos')">todos</button>
+        </div>
+      </div>
+    </div>
+</ng-template>
+<ng-template #SCarrera>
+
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Edita tus datos personales</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal('carreras')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body" style="min-height: 400px;">
+      <div class="row">
+        <ng-container *ngFor="let carrera of carreras;">
+          <div class="col-md-12 mb-3" *ngIf="carrera.name!=='Carrera 1' && carrera.name!=='Software 1' && carrera.name!=='Nombre 3'">
+            <button type="button" class="btn btn-sm btn-outline-secondary col-12" (click)="SelectThis('carreras',carrera.nombre,carrera.name)">{{carrera.nombre}}</button>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+</ng-template>
