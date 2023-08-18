@@ -8,7 +8,7 @@
             <img class="social-header card-img maxh-250" src="/assets/img/social/header.jpg" />
         </div>
         <div class="col-12 col-lg-12 col-xl-12 col-left">
-            <img alt="Profile" src="{{cur_doc['foto']?'https://bdalumni.evolutionsoluciones.com'+cur_doc['foto']:'/assets/img/profiles/l-7.jpg'}}" class="img-thumbnail card-img social-profile-img rounded-circle">
+            <img alt="Profile" src="{{cur_doc['foto']?'https://admin-jointec.tecsup.edu.pe'+cur_doc['foto']:'/assets/img/profiles/l-7.jpg'}}" class="img-thumbnail card-img social-profile-img rounded-circle">
 
             <div class="card mb-4 card-anim">
                 <div class="card-body">
@@ -499,7 +499,7 @@
             <p>Para descargar tu CV asegurate de haber completado todos los campos&nbsp;de&nbsp;tu&nbsp;perfil</p>
             <a class="btn btn-outline-light btn-xs" href=
 
-            "https://bdalumni.evolutionsoluciones.com/api/method/frappe.utils.weasyprint.download_pdf?doctype=Perfil+del+exalumno&name={{cur_doc['name']}}&print_format=CV"
+            "https://admin-jointec.tecsup.edu.pe/api/method/frappe.utils.weasyprint.download_pdf?doctype=Perfil+del+exalumno&name={{cur_doc['name']}}&print_format=CV"
             target="_blank">Descarga tu CV</a>
         </div>
     </div>
@@ -508,7 +508,7 @@
             <h2>Mis documentos</h2>
             <ng-container *ngFor="let file of DocFiles">
                 <p class="mb-3 text-break uploadfile">
-                    <a class="text-white" [href]="file['file_url']?'https://bdalumni.evolutionsoluciones.com'+file['file_url']:''"  target="_blank">{{file['file_name']?file['file_name']:''}}</a>
+                    <a class="text-white" [href]="file['file_url']?'https://admin-jointec.tecsup.edu.pe'+file['file_url']:''"  target="_blank">{{file['file_name']?file['file_name']:''}}</a>
                 </p>
 
             </ng-container>
