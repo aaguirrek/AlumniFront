@@ -7,6 +7,11 @@
 # Only exists if Bazel was run
 /bazel-out
 
+src/environments
+src/environments/*
+src/environments/**/*
+src/app/data/data.service.ts
+
 # dependencies
 /node_modules
 
@@ -44,10 +49,3 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-/src/environments
-/src/environments/*
-/src/environments/**/*
-src/environments
-src/environments/*
-src/environments/**/*
-src/app/data/data.service.ts
