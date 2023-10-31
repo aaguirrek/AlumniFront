@@ -37,13 +37,13 @@ const data: IMenuItem[] = [
     icon: 'iconsminds-students',
     label: 'Asesorias',
     to: '/app/vien/asesorias'
-  },
+  },/*
   {
     id: 'gestor',
     icon: 'iconsminds-statistic',
     label: 'Gestor de Carreras',
     to: '/app/vien/gestorcarreras'
-  },
+  },*/
   {
     id: 'networking',
     icon: 'iconsminds-network',
