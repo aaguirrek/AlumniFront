@@ -2,8 +2,8 @@
 <div class="row">
   <div class="col-12">
 
-      <img *ngIf="!doc.logo_empresa" src="/assets/img/company.png" alt="" class="float-left img-thumbnail rounded-circle" style="max-width: 100px;margin-right: 30px;margin-bottom: 25px;">
-      <img *ngIf="doc.logo_empresa" src="https://admin-jointec.tecsup.edu.pe{{doc.logo_empresa}}" alt="" class="float-left img-thumbnail rounded-circle" style="max-width: 100px;margin-right: 30px;margin-bottom: 25px;">
+      <img *ngIf="!doc.logo_empresa" src="/assets/img/company.png" alt="" class="float-left img-thumbnail rounded-circle" style="max-width: 100px; margin-right: 30px; margin-bottom: 25px; min-height: 100px; max-height: 100px; min-width: 100px; object-fit: contain;">
+      <img *ngIf="doc.logo_empresa" src="https://admin-jointec.tecsup.edu.pe{{doc.logo_empresa}}" alt="" class="float-left img-thumbnail rounded-circle" style="max-width: 100px; margin-right: 30px; margin-bottom: 25px; min-height: 100px; max-height: 100px; min-width: 100px; object-fit: cover;">
       <ng-container *ngIf="doc.mostrar_salario != 'No'">
         <h2 class="text-uppercase">
           <button class="btn btn-primary btn-primary-gradient text-light float-right mb-5" *ngIf="doc.hasta == '0'">S/. {{doc.desde}}</button>
@@ -78,7 +78,7 @@
             </div>
           </div>
         </div>
-       <!-- <div class="card mt-3" *ngIf="ofertas.length==0 && postulado==0">
+       <!--<div class="card mt-3" *ngIf="ofertas.length==0 && postulado==0">
           <div class="card-body">
             <div class="row">
               <div class="col-md-12 text-center  mt-4 mb-4">
