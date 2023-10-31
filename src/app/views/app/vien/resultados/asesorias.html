@@ -8,22 +8,63 @@
         <div>
           <div class="row">
             <div class="col-md-5">
-              <h1 class="card-title text-primary"> Diagrama de cualidades</h1>
+              <h1 class="card-title text-primary"> Diagrama de competencias</h1>
               <div [class]="class"><canvas #chart></canvas></div>
             </div>
             <div class="col-md-7">
-              <h1 class="card-title text-primary"> Big Data y Ciencia de datos</h1>
-              <h3 class="card-title text-secondary"> Programación: 5.5/10</h3>
-              <h3 class="card-title text-secondary"> Base de datos: 5.5/10</h3>
-              <h3 class="card-title text-secondary"> Estadística: 5.5/10</h3>
+
+              <h1 class="card-title text-primary"> Competencias Técnicas</h1>
+              <h5 class="card-title text-secondary"> Gestión de protocolos de medios de seguridad en las redes informáticas</h5>
+              <h5 class="card-title text-secondary"> Estándares de seguridad y reportabilidad</h5>
+              <h5 class="card-title text-secondary"> Orientación de resultados</h5>
+              <h5 class="card-title text-secondary"> Técnicas y lenguajes de programación</h5>
+              <h5 class="card-title text-secondary"> Sistemas informáticos y sistemas operativos</h5>
+              <h5 class="card-title text-secondary"> Administración de redes y comunicación de datos</h5>
             </div>
           </div>
         </div>
-        <div class="text-center">
-          <a [routerLink]="'../gestorcarreras'"  class="btn btn-secondary btn-secondary-gradient text-light mt-2"  >Regresar al Gestor de carreras</a>
-        </div>
       </div>
     </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 text-center">
+
+    <h1 class="card-title text-primary"> Resultados de la validación</h1>
+
+  </div>
+
+  <div class="col-md-2 offset-md-3 text-center">
+    <h5 class="card-title text-success"> <i ng-reflect-ng-class="iconsminds-management" class="iconsminds-yes"></i> Lograda</h5>
+  </div>
+  <div class="col-md-2 text-center">
+    <h5 class="card-title text-warning"> <i ng-reflect-ng-class="iconsminds-management" class="iconsminds-remove"></i> En Proceso de logro</h5>
+  </div>
+  <div class="col-md-2 text-center">
+    <h5 class="card-title text-danger"> <i ng-reflect-ng-class="iconsminds-management" class="iconsminds-close"></i> Sin lograr</h5>
+  </div>
+</div>
+
+<div class="row">
+
+  <div class="col-md-8 offset-md-2">
+    <div class="card mb-4 ">
+      <div class="card-body">
+        <h5 class="card-title text-danger"><i ng-reflect-ng-class="iconsminds-management" class="iconsminds-close"></i> Gestión de protocolos de medios de seguridad en las redes informáticas</h5>
+        <h5 class="card-title text-success"><i ng-reflect-ng-class="iconsminds-management" class="iconsminds-yes"></i> Estándares de seguridad y reportabilidad</h5>
+        <h5 class="card-title text-success"><i ng-reflect-ng-class="iconsminds-management" class="iconsminds-yes"></i> Orientación de resultados</h5>
+        <h5 class="card-title text-warning"><i ng-reflect-ng-class="iconsminds-management" class="iconsminds-remove"></i> Técnicas y lenguajes de programación</h5>
+        <h5 class="card-title text-danger"><i ng-reflect-ng-class="iconsminds-management" class="iconsminds-close"></i> Sistemas informáticos y sistemas operativos</h5>
+        <h5 class="card-title text-warning"><i ng-reflect-ng-class="iconsminds-management" class="iconsminds-remove"></i> Administración de redes y comunicación de datos</h5>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+<div class="row">
+  <div class="col-md-12 text-center">
+    <a [routerLink]="'../gestorcarreras'"  class="btn btn-secondary btn-secondary-gradient text-light mt-2"  >Regresar al Gestor de carreras</a>
   </div>
 </div>
 

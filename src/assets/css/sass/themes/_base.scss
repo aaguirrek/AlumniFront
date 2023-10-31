@@ -623,3 +623,15 @@ div#result-pais ul li:hover{
     cursor: not-allowed;
   }
 }
+.list-thumbnail {
+  border-radius: 0.1rem;
+  padding: 0;
+  border: initial;
+  height: auto;
+  max-width: 85px;
+  height: 85px;
+  -o-object-fit: contain;
+  -moz-object-fit: contain;
+  object-fit: contain;
+  width: unset;
+}
