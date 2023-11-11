@@ -46,8 +46,8 @@
                 <div class="row mr-0">
                   <div class="col-lg-3 d-md-none d-lg-block">
                     <a class="d-flex" [routerLink]="'./'+el.name" >
-                      <img *ngIf="el.logo_empresa" alt="Profile" src="https://admin-jointec.tecsup.edu.pe{{el.logo_empresa}}" class="img-thumbnail border-0 rounded-circle m-2 list-thumbnail align-self-center">
-                      <img *ngIf="!el.logo_empresa" alt="Profile" src="/assets/img/company.png" class="img-thumbnail border-0 rounded-circle m-2 list-thumbnail align-self-center">
+                      <img *ngIf="el.logo_empresa" alt="Profile" src="https://admin-jointec.tecsup.edu.pe{{el.logo_empresa}}" class="img-thumbnail border-0 rounded-circle m-auto m-2 list-thumbnail align-self-center">
+                      <img *ngIf="!el.logo_empresa" alt="Profile" src="/assets/img/company.png" class="img-thumbnail border-0 rounded-circle m-2 m-auto list-thumbnail align-self-center">
                     </a>
                   </div>
                   <div class="col-12 col-md-7 col-xl-8 col-xxl-6 ">
