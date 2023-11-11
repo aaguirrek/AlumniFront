@@ -14,6 +14,7 @@ export class AsesoriasComponent implements OnInit {
   doc:any={};
   doc_list:any[]=[];
   doc_aprovado:any[]=[];
+  asesores:any[]=[];
   modalRef: BsModalRef;
   constructor(private dataService: DataService,private _Activatedroute:ActivatedRoute, private notifications: NotificationsService, private modalService: BsModalService) { }
 
@@ -23,11 +24,12 @@ export class AsesoriasComponent implements OnInit {
       this.doc_list = data["data"];
       this.dataService.get_list("Asesorias",["*"],[["egresado","=",localStorage.getItem("email")],["estado","=","Aprobado"]]).subscribe(data=>{
         this.doc_aprovado= data["data"];
-        (document.querySelector(".preloader") as HTMLElement ).style.cssText = "display:none;";
+        this.dataService.get_list("Alumnis",["*"]).subscribe(data=>{
+          this.asesores = data['data'];
+          (document.querySelector(".preloader") as HTMLElement ).style.cssText = "display:none;";
+        });
       })
     })
-
-
   }
   Reservar(){
     const doctype:String = "Asesorias"

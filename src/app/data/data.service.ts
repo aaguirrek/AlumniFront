@@ -264,7 +264,7 @@ export class DataService {
     return this.httpClient.delete(`${this.REST_API_RESURCE}${doctype}`,{headers:cabecera});
     }else{
       return this.httpClient.delete(`${this.REST_API_RESURCE}${doctype}/${name}`,{headers:cabecera});
-      
+
     }
   }
   public get_list(doctype,fields,filters?){
@@ -273,9 +273,9 @@ export class DataService {
     });
     if(filters===undefined){
 
-      return this.httpClient.get(`${this.REST_API_RESURCE}${doctype}?fields=${JSON.stringify(fields)}`,{headers:cabecera});
+      return this.httpClient.get(`${this.REST_API_RESURCE}${doctype}?fields=${JSON.stringify(fields)}&limit=200`,{headers:cabecera});
     }else{
-      return this.httpClient.get(`${this.REST_API_RESURCE}${doctype}?fields=${JSON.stringify(fields)}&filters=${JSON.stringify(filters)}`,{headers:cabecera});
+      return this.httpClient.get(`${this.REST_API_RESURCE}${doctype}?fields=${JSON.stringify(fields)}&filters=${JSON.stringify(filters)}&limit=200`,{headers:cabecera});
 
     }
   }
@@ -283,7 +283,7 @@ export class DataService {
     const cabecera:HttpHeaders = new HttpHeaders({
       'Authorization': this.REST_JWT
     });
-      return this.httpClient.get(`${this.REST_API_RESURCE}${doctype}?fields=${JSON.stringify(fields)}&limit=${limit}`,{headers:cabecera});
+      return this.httpClient.get(`${this.REST_API_RESURCE}${doctype}?fields=${JSON.stringify(fields)}&limit=${limit}&limit=200`,{headers:cabecera});
 
   }
 
