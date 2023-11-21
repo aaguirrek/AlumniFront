@@ -54,8 +54,9 @@
                     <a [routerLink]="'./'+el.name">
                       <p class="list-item-heading mb-1 truncate text-primary text-bold" style="max-width:calc(40vw - 320px)">{{el.oferta}}</p>
                     </a>
-                    <p class="mb-2 text-small font-weight-bold">{{el.modalidad_de_trabajo}}</p>
+                    <p class="mb-2 text-small font-weight-bold">{{el.empresa}} - {{el.modalidad_de_trabajo}}</p>
                     <p class="mb-2 text-muted text-small">Localidad: {{el.localidad}}, Perú</p>
+                    <p class="mb-2 text-muted text-small">Fecha de publicación: {{el["creation"].split(' ')[0]}}</p>
                     <p class="mb-2 text-muted text-small">Fin de publicacion: {{el["fin_de_publicación"]}}</p>
                     <ng-container *ngIf="el.mostrar_salario != 'No'">
 

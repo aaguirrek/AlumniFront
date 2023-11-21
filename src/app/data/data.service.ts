@@ -279,6 +279,18 @@ export class DataService {
 
     }
   }
+  public get_list_order(doctype,fields,filters?){
+    const cabecera:HttpHeaders = new HttpHeaders({
+      'Authorization': this.REST_JWT
+    });
+    if(filters===undefined){
+
+      return this.httpClient.get(`${this.REST_API_RESURCE}${doctype}?fields=${JSON.stringify(fields)}&order_by=modified desc&limit=200`,{headers:cabecera});
+    }else{
+      return this.httpClient.get(`${this.REST_API_RESURCE}${doctype}?fields=${JSON.stringify(fields)}&filters=${JSON.stringify(filters)}&order_by=modified desc&limit=200`,{headers:cabecera});
+
+    }
+  }
   public get_list_name_limit(doctype,fields,limit){
     const cabecera:HttpHeaders = new HttpHeaders({
       'Authorization': this.REST_JWT
