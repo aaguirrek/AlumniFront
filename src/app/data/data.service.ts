@@ -9,12 +9,12 @@ import { filter } from 'rxjs/operators';
 })
 export class DataService {
   private REST_JWT = "Basic MTk3YWNiNmNkNjQwOGU3OjYwYjNhZWQ2ZmU0YWZkZg=="
-	private REST_API_SERVER = "https://bdalumni.evolutionsoluciones.com/api/method/bdalumni.api.docField?docname=Perfil%20del%20exalumno";
-  private REST_API_PATH = "https://bdalumni.evolutionsoluciones.com/api/method/bdalumni.api.docField?docname=";
-  private REST_API_TABLE = "https://bdalumni.evolutionsoluciones.com/api/method/bdalumni.api.docTable?docname=";
-  private REST_API_SEARCH = "https://bdalumni.evolutionsoluciones.com/api/method/bdalumni.api.search?docname=";
-  private REST_API_RESURCE = "https://bdalumni.evolutionsoluciones.com/api/resource/";
-  private REST_API_METHOD = "https://bdalumni.evolutionsoluciones.com/api/method/";
+	private REST_API_SERVER = "https://admin-jointec.tecsup.edu.pe/api/method/bdalumni.api.docField?docname=Perfil%20del%20exalumno";
+  private REST_API_PATH = "https://admin-jointec.tecsup.edu.pe/api/method/bdalumni.api.docField?docname=";
+  private REST_API_TABLE = "https://admin-jointec.tecsup.edu.pe/api/method/bdalumni.api.docTable?docname=";
+  private REST_API_SEARCH = "https://admin-jointec.tecsup.edu.pe/api/method/bdalumni.api.search?docname=";
+  private REST_API_RESURCE = "https://admin-jointec.tecsup.edu.pe/api/resource/";
+  private REST_API_METHOD = "https://admin-jointec.tecsup.edu.pe/api/method/";
   public static ENV_VARS:{UserData:object|null,headerToken:string} = {
     UserData:null,
     headerToken:""
