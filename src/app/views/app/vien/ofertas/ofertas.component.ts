@@ -17,7 +17,7 @@ export class OfertasComponent implements OnInit {
   carreras:any[] = [];
   modals:{[key:string]:BsModalRef} = {};
   docname = "Oferta Laboral";
-  values:{[key:string]:string} = {provincia:"Provincia",tipoDePuesto:"Tipo de puesto", modalidad:"Modalidad", carreras:"Todas las carreras"};
+  values:{[key:string]:string} = {provincia:"Lugar",tipoDePuesto:"Tipo de puesto", modalidad:"Modalidad", carreras:"Todas las carreras"};
   constructor(private dataService: DataService,private modalService: BsModalService) {
     this.cur_doc = [];
    }

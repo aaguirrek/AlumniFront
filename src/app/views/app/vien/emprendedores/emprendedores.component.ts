@@ -47,7 +47,13 @@ export class EmprendedoresComponent implements OnInit {
           "email":(document.getElementById('email') as HTMLTextAreaElement).value,
           "logo":this.filename,
           "egresado":egresado
-        }).subscribe(data=>{ this.filename="Agregar"; }, (error) => {
+        }).subscribe(data=>{ this.filename="Agregar";
+      
+    this.dataService.get_list("Emprendimiento de egresado",["*"]).subscribe(data=>{
+      this.doc_list = data["data"];
+      (document.querySelector(".preloader") as HTMLElement ).style.cssText = "display:none;";
+    })
+   }, (error) => {
           let errores = JSON.parse( error.error._server_messages )
           this.modalRef.hide();
           for (const key in errores) {
@@ -55,6 +61,10 @@ export class EmprendedoresComponent implements OnInit {
               this.notifications.create("Error", JSON.parse(element).message , NotificationType.Error, { timeOut: 3000, showProgressBar: true });
           }
 
+          this.dataService.get_list("Emprendimiento de egresado",["*"]).subscribe(data=>{
+            this.doc_list = data["data"];
+            (document.querySelector(".preloader") as HTMLElement ).style.cssText = "display:none;";
+          })
         });
 
   }
