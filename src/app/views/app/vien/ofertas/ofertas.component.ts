@@ -37,7 +37,7 @@ export class OfertasComponent implements OnInit {
   ngOnInit() {
 
     (document.querySelector(".preloader") as HTMLElement ).style.cssText = "display:inline-block;"
-    this.dataService.get_list(this.docname, ["*"],[["docstatus","=","1"],["fin_de_publicación",">",this.formatDate(new Date())]]).subscribe(data => {
+    this.dataService.get_list_order(this.docname, ["*"],[["docstatus","=","1"],["fin_de_publicación",">",this.formatDate(new Date())]]).subscribe(data => {
       let resp = data["data"]
       this.cur_doc = resp;
 
@@ -96,7 +96,7 @@ export class OfertasComponent implements OnInit {
         }
       }
     }
-    this.dataService.get_list(this.docname, ["*"],filter).subscribe(data => {
+    this.dataService.get_list_order(this.docname, ["*"],filter).subscribe(data => {
       let resp = data["data"]
       this.cur_doc = resp
     })
